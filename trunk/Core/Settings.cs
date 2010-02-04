@@ -8,28 +8,13 @@ namespace Core
 {
     public class Settings
     {
-        public static readonly double shift = 10; //-15;
-
-        #region Curve Params
-
-        public static readonly double arg_mult = 0.08;
-        public static readonly double arg_add = -1.7;
-        public static readonly double mult = 4.0;
-        public static readonly double add = 30;
-        public static readonly double Balance_mult = 0.5;
-        public static readonly double Balance_add = 0;
 
         public static readonly double TrailingOrderBonus = 12.0;
         public static readonly double MaxLooseToMarket = 10.0;
         public static readonly double Actual2TargetPriceDeviation = 12.0;
 
-        public static readonly IFormatProvider culture = new CultureInfo("en-US");
-
-        #endregion
-
         public static readonly int maxPos = 170;
-        public static readonly double minFreeMoney = 15000;
-        public static readonly double rebalanceFreeMoneyThreshold = 30000;
+        public static readonly double minFreeMoney = 30000;
 
         public static bool exitPortfolio = false;
 
@@ -52,5 +37,7 @@ namespace Core
                         tradingEndBeforeEveClearing = new TimeSpan(18, 44, 40),
                         tradingStartAfterEveClearing = new TimeSpan(19, 00, 20),
                         tradingEnd = new TimeSpan(23, 49, 30);
+
+        public static readonly IFormatProvider culture = new CultureInfo("en-US");
     }
 }

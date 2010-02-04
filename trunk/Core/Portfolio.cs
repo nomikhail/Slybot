@@ -13,67 +13,38 @@ namespace Core
 
         static readonly double unacceptableThreshold = 10000;
 
-        public static bool IsPosIncreaseProhibited()
+        public static bool IsPosIncreaseProhibited(int pos)
         {
             if (Settings.exitPortfolio)
                 return true;
 
-            if (Math.Abs(EurRur) > Settings.maxPos)
+            if (Math.Abs(pos) > Settings.maxPos)
                 return true;
 
-            var freeMoney = DataExtractor.GetFreeMoneyAmount();
-            if (freeMoney < Settings.minFreeMoney)
-                return true;
+            double freeMoney = DataExtractor.GetFreeMoneyAmount();
 
-            if (!ShouldRebalancePortfolio() && freeMoney < Settings.rebalanceFreeMoneyThreshold)
-                return true;
-
-            return false;
+            return freeMoney < Settings.minFreeMoney;
         }
 
-        public static double GetBuyThreshold(zz)
+        public static double GetBuyThreshold()
+        { return GetBuyThreshold(EurRur); }
+        public static double GetBuyThreshold(int pos) // pos means eurRur
         {
-            if (EurRur >= 0 && IsPosIncreaseProhibited())
+            if (EurRur >= 0 && IsPosIncreaseProhibited(pos))
                 return unacceptableThreshold;
 
-            if (ShouldRebalancePortfolio())
-                return GetBalanceThresholdProftit(EurRur) + Settings.shift;
-            else
-                return GetThresholdProfit(EurRur) + Settings.shift;
+            return (25.0 / Settings.maxPos) * pos + 25.0;
         }
 
         public static double GetSellThreshold()
+        { return GetSellThreshold(EurRur); }
+        public static double GetSellThreshold(int pos)
         {
-            if (EurRur <= 0 && IsPosIncreaseProhibited())
+            if (EurRur <= 0 && IsPosIncreaseProhibited(pos))
                 return unacceptableThreshold;
-            
-            if (ShouldRebalancePortfolio())
-                return GetBalanceThresholdProftit(-EurRur) - Settings.shift;
-            else
-                return GetThresholdProfit(-EurRur) - Settings.shift;
+
+            return  (-25.0 / Settings.maxPos) * pos + 25.0;
         }
-
-        private static double GetThresholdProfit(int pos)
-        {
-            return Math.Atan(Settings.arg_mult * pos + Settings.arg_add) * Settings.mult + Settings.add;
-        }
-
-        private static double GetBalanceThresholdProftit(int pos)
-        {
-            return GetThresholdProfit(pos) * Settings.Balance_mult + Settings.Balance_add;
-        }
-
-        private static bool ShouldRebalancePortfolio()
-        {
-            //rebalance dollar pos
-            double eurUsdPrice = (DataExtractor.GetBid(Settings.ED_instrument, 0) + DataExtractor.GetAsk(Settings.ED_instrument, 0)) / 2;
-            double dollarPos = Portfolio.EurRur * eurUsdPrice + Portfolio.UsdRur;
-
-            double maxOutstandingDollarPos = (eurUsdPrice - 1) / 1.5;
-
-            return Math.Abs(dollarPos) > maxOutstandingDollarPos;
-        }
-
 
         static int usdRur;
         static int eurRur;

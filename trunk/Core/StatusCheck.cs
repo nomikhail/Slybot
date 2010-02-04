@@ -68,16 +68,9 @@ namespace Core
         public void MakeStatusInfo(StatusCheckResponseProcessor processor)
         {
             Market market = Market.QueryMarket();
-            processor.Response("Arbitrage", false);
-            processor.Response("Buy:" + (int)market.PointsBuyEur, false);
-            processor.Response("Sell:" + (int)market.PointsSellEur, false);
-
-            if (Util.IsOperationTime())
-            {
-                processor.Response("Thresholds", false);
-                processor.Response("Buy:" + (int)Portfolio.GetBuyThreshold(), false);
-                processor.Response("Sell:" + (int)Portfolio.GetSellThreshold(), false);
-            }
+            processor.Response("arb(thr)", false);
+            processor.Response(string.Format("Buy:{0}({1})", (int)market.PointsBuyEur, (int)Portfolio.GetBuyThreshold(eurRur)), false);
+            processor.Response(string.Format("Sell:{0}({1})", (int)market.PointsSellEur, (int)Portfolio.GetSellThreshold(eurRur)), false);
 
             processor.Response("Portfolio", false);
             processor.Response(Settings.Eu_instrument + ":" + eurRur, false);

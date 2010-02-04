@@ -183,7 +183,7 @@ namespace Status
                     var parts = message.Split(':');
 
                     row.Cells.Add(new TableCell() { Text = parts[0], BorderWidth = 1});
-                    row.Cells.Add(new TableCell() { Text = "<b>" + parts[1] + "</b>", BorderWidth = 1, Width = new Unit(60)});
+                    row.Cells.Add(new TableCell() { Text = "<b>" + parts[1] + "</b>", BorderWidth = 1, Width = new Unit(80)});
                 }
                 else
                 {
