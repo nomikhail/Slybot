@@ -35,7 +35,7 @@ namespace Core
 
         public static void StartProcessing()
         {
-            processingThread = new Thread(new ThreadStart(WorkingProc)) { CurrentCulture = new CultureInfo("en-US")};
+            processingThread = new Thread(new ThreadStart(WorkingProc)) { CurrentCulture = Settings.enUsCulture};
             processingThread.Start();
         }
 

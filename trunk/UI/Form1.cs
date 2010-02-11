@@ -347,7 +347,7 @@ namespace UI
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            Thread.CurrentThread.CurrentCulture = Settings.enUsCulture;
 
             logger.Info("SlyBot launched.");
 

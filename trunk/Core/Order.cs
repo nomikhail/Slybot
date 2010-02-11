@@ -133,47 +133,45 @@ namespace Core
 
         #endregion
 
-        public static void TransactionsReplyOld(int transactionResult,
-            int transactionExtendedErrorCode, int transactionReplyCode,
-            uint transactionID, double orderNumber, string transactionReplyMessage)
-        {
-            if (transactionReplyMessage.Contains("Снятое количество") ||
-                transactionReplyMessage.Contains("Вы не можете снять данную заявку") ||
-                transactionReplyMessage.Contains("Не найдена заявка для удаления")) //||
-                return;
-
-            //transactionReplyMessage.Contains("Указанная транзакция по указанному классу не найдена") ||
-            //transactionReplyMessage.Contains("Указанный класс не найден"))
-
-
-            // reasonoable transaction id and following message:
-            // "Communication gate is down"
-
-            if (!OrdersWithoutCode.ContainsKey((int)transactionID))
-                throw new Exception(string.Format("Transaction not found for reply. (TransId={0}; Result={1}; Message={2})",
-                    transactionID, transactionResult, transactionReplyMessage));
-
-            Order order = OrdersWithoutCode[(int)transactionID];
-            if (transactionResult != 0)
-            {
-                order.error = transactionReplyMessage;
-                order.startMonitoring.Set();
-                return;
-            }
-
-            order.code = (int)orderNumber;
-            OrdersWithoutCode.Remove((int)transactionID);
-            ActiveOrders[order.code.Value] = order;
-            order.startMonitoring.Set();
-        }
-
         public static void TransactionsReply(int transactionResult,
             int transactionExtendedErrorCode, int transactionReplyCode,
             uint transactionID, double orderNumber, string transactionReplyMessage)
         {
-            TransactionsReplyOld(transactionResult, transactionExtendedErrorCode, transactionReplyCode, transactionID, orderNumber, transactionReplyMessage);
+            Order order = null;
+            OrdersWithoutCode.TryGetValue((int)transactionID, out order);
 
-            //order.State = OrderState.Active;
+            if (order != null)
+            {
+                if (transactionResult == 0 && transactionReplyCode == 3)
+                {
+                    order.code = (int)orderNumber;
+                    OrdersWithoutCode.Remove((int)transactionID);
+                    ActiveOrders[order.code.Value] = order;
+                }
+                else
+                {
+                    order.error = transactionReplyMessage;
+                }
+                order.startMonitoring.Set();
+            }
+
+            //transactionId > 0 && order == null
+            //    throw new Exception(string.Format("Transaction not found for reply. (TransId={0}; Result={1}; Message={2})",
+            //        transactionID, transactionResult, transactionReplyMessage));
+
+
+            //if (transactionReplyMessage.Contains("Снятое количество") ||
+            //    transactionReplyMessage.Contains("Вы не можете снять данную заявку") ||
+            //    transactionReplyMessage.Contains("Не найдена заявка для удаления")) //||
+            //    return;
+
+            //transactionReplyMessage.Contains("Указанная транзакция по указанному классу не найдена") ||
+            //transactionReplyMessage.Contains("Указанный класс не найден"))
+
+            //@"Recieve <- (0; 0; 2; 19479; 0; ""No gate for SPBFUT589000\"")";
+
+            // reasonoable transaction id and following message:
+            // "Communication gate is down"
         }
 
         
@@ -187,7 +185,7 @@ namespace Core
             builder.Append("CLASSCODE=SPBFUT; ");
             builder.Append(string.Format("SECCODE={0}; ", SecCode));
             builder.Append(string.Format("OPERATION={0}; ", Operation));
-            builder.Append(string.Format("PRICE={0}; ", Price.ToString(Settings.culture)));
+            builder.Append(string.Format("PRICE={0}; ", Price.ToString(Settings.enUsCulture)));
             builder.Append(string.Format("QUANTITY={0}; ", Quantity));
             builder.Append(string.Format("TRANS_ID={0}; ", QuikCorrelationId));
 

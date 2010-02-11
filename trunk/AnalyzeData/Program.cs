@@ -15,28 +15,6 @@ namespace AnalyzeData
 {
     class Program
     {
-
-        static void Main(string[] args)
-        {
-            var data = Enumerable.Range(1, 50).Select(i => (i * i) % 1000);
-
-            // Create a line chart that is 250 pixels wide and 150 pixels high
-            LineChart lineChart = new LineChart(800, 250);
-
-            // Set the title text, title color and title font size in pixels
-            lineChart.SetTitle("Single Dataset Per Line", "0000FF", 14);
-
-            // Set the chart to use our collection of datasets
-            lineChart.SetData(data.ToArray());
-
-            // If we create an axis with only this parameter it will
-            // have a range of 0-100 and be evenly spaced across the chart
-            lineChart.AddAxis(new ChartAxis(ChartAxisType.Left));
-            lineChart.AddAxis(new ChartAxis(ChartAxisType.Bottom));
-
-            System.Diagnostics.Process.Start(lineChart.GetUrl());
-        }
-
         //static readonly int numrows = 10000;
         //static int iteration = 0;
         //static void WithSql(int cmdsperq)

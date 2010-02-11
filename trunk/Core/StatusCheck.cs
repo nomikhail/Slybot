@@ -59,10 +59,7 @@ namespace Core
 
             double eurUsdPrice = (DataExtractor.GetBid(Settings.ED_instrument, 0) + DataExtractor.GetAsk(Settings.ED_instrument, 0)) / 2;
             double dollarPos = eurRur * eurUsdPrice + usdRur;
-            if (Math.Abs(dollarPos) < 0.5)
-                processor.Response(Settings.Si_instrument + " exposure OK.", true);
-            else
-                processor.Response(Settings.Si_instrument + " exposure: " + dollarPos.ToString("F", Settings.culture) + ".", false);
+            processor.Response(Settings.Si_instrument + " exposure: " + dollarPos.ToString("F", Settings.enUsCulture) + ".", Math.Abs(dollarPos) < 0.8);
         }
         
         public void MakeStatusInfo(StatusCheckResponseProcessor processor)

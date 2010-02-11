@@ -41,9 +41,20 @@ namespace Core
 
         public static void TransactionsReply(int result, int extendedErrorCode, int replyCode, uint transactionID, double orderNumber, string replyMessage)
         {
-            apiLogger.DebugFormat("Recieve <- ({0}; {1}; {2}; {3}; {4}; \"{5}\")", result, extendedErrorCode, replyCode, transactionID, orderNumber, replyMessage);
+            try
+            {
+                string msg = string.Format("Recieve <- ({0}; {1}; {2}; {3}; {4}; \"{5}\")", result, extendedErrorCode, replyCode, transactionID, orderNumber, replyMessage);
+                if (result == 0 && replyCode == 3)
+                    apiLogger.Debug(msg);
+                else
+                    apiLogger.Warn(msg);
 
-            Order.TransactionsReply(result, extendedErrorCode, replyCode, transactionID, orderNumber, replyMessage);
+                Order.TransactionsReply(result, extendedErrorCode, replyCode, transactionID, orderNumber, replyMessage);
+            }
+            catch (Exception ex)
+            {
+                Util.ProcessFatalException(ex);
+            }
         }
 
 

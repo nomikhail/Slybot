@@ -201,7 +201,7 @@ namespace Core
 
                 double eurUsdPrice = (DataExtractor.GetBid(Settings.ED_instrument, 0) + DataExtractor.GetAsk(Settings.ED_instrument, 0)) / 2;
                 double dollarPos = eurRur * eurUsdPrice + usdRur;
-                builder.Append("    $:" + dollarPos.ToString("F", Settings.culture));
+                builder.Append("    $:" + dollarPos.ToString("F", Settings.enUsCulture));
 
                 if (eurRur + eurUsd != 0)
                     builder.Append(string.Format("  (€/$: {0})", eurRur + eurUsd));

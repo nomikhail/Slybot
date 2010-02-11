@@ -38,6 +38,6 @@ namespace Core
                         tradingStartAfterEveClearing = new TimeSpan(19, 00, 20),
                         tradingEnd = new TimeSpan(23, 49, 30);
 
-        public static readonly IFormatProvider culture = new CultureInfo("en-US");
+        public static readonly CultureInfo enUsCulture = new CultureInfo("en-US");
     }
 }
