@@ -324,24 +324,37 @@ namespace Core
 
         public static List<string> GetUpdatedData()
         {
-            QuikDataContext quikData = new QuikDataContext();
-
-            int countChanged = quikData.States.Count(state => state.isUpdated);
-
-            if (countChanged == 0)
-                return null;
-
-            lock (conLock)
+            try
             {
-                List<string> result = new List<string>();
+                QuikDataContext quikData = new QuikDataContext();
 
-                var updatedData = quikData.States.Where(state => state.isUpdated).ToList();
-                updatedData.ForEach(elem => elem.isUpdated = false);                
-                quikData.SubmitChanges();
-                quikData.Refresh(RefreshMode.OverwriteCurrentValues, quikData.States);
-                
+                int countChanged = quikData.States.Count(state => state.isUpdated);
 
-                return updatedData.Select(elem => elem.entity).ToList();
+                if (countChanged == 0)
+                    return null;
+
+                lock (conLock)
+                {
+                    List<string> result = new List<string>();
+
+                    var updatedData = quikData.States.Where(state => state.isUpdated).ToList();
+                    updatedData.ForEach(elem => elem.isUpdated = false);
+                    quikData.SubmitChanges();
+                    quikData.Refresh(RefreshMode.OverwriteCurrentValues, quikData.States);
+
+
+                    return updatedData.Select(elem => elem.entity).ToList();
+                }
+            }
+            catch (SqlException ex)
+            {
+                if (ex.Message.Contains("deadlock victim. Rerun the transaction"))
+                {
+                    Logger.Warn(ex);
+                    return null;
+                }
+
+                throw;
             }
         }
 

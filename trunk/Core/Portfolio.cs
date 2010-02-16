@@ -33,7 +33,7 @@ namespace Core
             if (EurRur >= 0 && IsPosIncreaseProhibited(pos))
                 return unacceptableThreshold;
 
-            return (25.0 / Settings.maxPos) * pos + 25.0;
+            return (25.0 / Settings.maxPos) * pos + 15.0;
         }
 
         public static double GetSellThreshold()
