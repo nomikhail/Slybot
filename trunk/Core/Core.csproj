@@ -101,7 +101,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SlyBot.dbml</DependentUpon>
     </Compile>
-    <Compile Include="SlyBot2.cs" />
     <Compile Include="Stakan.cs" />
     <Compile Include="StatusCheck.cs" />
     <Compile Include="Trans2QuikAPI.cs" />

@@ -18,7 +18,7 @@ namespace Core
             return QueryFromStakan(0);
         }
 
-        private static readonly Regex regex        = new Regex(@"(\S+): .+ \(([\d\.]+),\d+\)  #  \(([\d\.]+),\d+\) .+$");
+        private static readonly Regex regex        = new Regex(@"(\S+): .+ \(([\d\.]+),\d+(,\d+)?\)  #  \(([\d\.]+),\d+(,\d+)?\) .+$");
         private static readonly Regex regexNodData = new Regex(@"(\S+):\s+#\s+$");
 
         public void ProcessLogMessage(Log logMsg)
@@ -31,7 +31,7 @@ namespace Core
             {
                 instrument = match.Groups[1].Captures[0].Value;
                 bid = double.Parse(match.Groups[2].Captures[0].Value);
-                ask = double.Parse(match.Groups[3].Captures[0].Value);
+                ask = double.Parse(match.Groups[4].Captures[0].Value);
             }
             else
             {
