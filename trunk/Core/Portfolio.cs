@@ -15,9 +15,6 @@ namespace Core
 
         public static bool IsPosIncreaseProhibited(int pos)
         {
-            if (Settings.exitPortfolio)
-                return true;
-
             if (Math.Abs(pos) > Settings.maxPos)
                 return true;
 
@@ -30,20 +27,30 @@ namespace Core
         { return GetBuyThreshold(EurRur); }
         public static double GetBuyThreshold(int pos) // pos means eurRur
         {
-            if (EurRur >= 0 && IsPosIncreaseProhibited(pos))
+            if (pos >= 0 && IsPosIncreaseProhibited(pos))
                 return unacceptableThreshold;
 
-            return (25.0 / Settings.maxPos) * pos + 15.0;
+            double threshold = (25.0 / Settings.maxPos) * pos + 15.0;
+
+            if (pos >= 0 && Settings.exitPortfolio)
+                threshold += Settings.counterExitPortfolioBonus;
+
+            return threshold;
         }
 
         public static double GetSellThreshold()
         { return GetSellThreshold(EurRur); }
         public static double GetSellThreshold(int pos)
         {
-            if (EurRur <= 0 && IsPosIncreaseProhibited(pos))
+            if (pos <= 0 && IsPosIncreaseProhibited(pos))
                 return unacceptableThreshold;
 
-            return  (-25.0 / Settings.maxPos) * pos + 15.0;
+            double threshold = (-25.0 / Settings.maxPos) * pos + 15.0;
+
+            if (pos <= 0 && Settings.exitPortfolio)
+                threshold += Settings.counterExitPortfolioBonus;
+
+            return threshold;
         }
 
         static int usdRur;

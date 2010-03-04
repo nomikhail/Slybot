@@ -16,7 +16,8 @@ namespace Core
         public static readonly int maxPos = 200;
         public static readonly double minFreeMoney = 30000;
 
-        public static bool exitPortfolio = false;
+        public static readonly bool exitPortfolio = true;
+        public static readonly double counterExitPortfolioBonus = 100;
 
         public const string Si_instrument = "SiH0";
         public const string Eu_instrument = "EuH0";
@@ -25,7 +26,7 @@ namespace Core
         public static readonly string quikDir = @"D:\!\QUIK_BCS\";
         public static readonly string skypeAgentDir = @"D:\!\SkypeAgent\";
 
-        public static TimeSpan morningStart = new TimeSpan(10, 25, 0), initiationFinish = new TimeSpan(10, 27, 0),
+        public static TimeSpan morningStart = new TimeSpan(10, 00, 0), initiationFinish = new TimeSpan(10, 27, 0),
                         dayClearingStart = new TimeSpan(14, 0, 0),
                         dayClearingEnd = new TimeSpan(14, 3, 0),
                         eveClearingStart = new TimeSpan(18, 45, 0),
