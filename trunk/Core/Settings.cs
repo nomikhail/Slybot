@@ -17,11 +17,11 @@ namespace Core
         public static readonly double minFreeMoney = 30000;
 
         public static readonly bool exitPortfolio = true;
-        public static readonly double counterExitPortfolioBonus = 100;
+        public static readonly double counterExitPortfolioBonus = 10;
 
-        public const string Si_instrument = "SiH0";
-        public const string Eu_instrument = "EuH0";
-        public const string ED_instrument = "EDH0";
+        public const string Si_instrument = "SiM0";
+        public const string Eu_instrument = "EuM0";
+        public const string ED_instrument = "EDM0";
 
         public static readonly string quikDir = @"D:\!\QUIK_BCS\";
         public static readonly string skypeAgentDir = @"D:\!\SkypeAgent\";

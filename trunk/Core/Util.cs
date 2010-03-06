@@ -153,8 +153,19 @@ namespace Core
                    (nowTime > Settings.tradingStartAfterEveClearing && nowTime < Settings.tradingEnd);
         }
 
+
+        static volatile bool firstErrorReported = false;
+        static object syncObject = new object();
         public static void InitiateSkypeSms(string smsMessage)
         {
+            lock (syncObject)
+            {
+                if (firstErrorReported)
+                    return;
+
+                firstErrorReported = true;
+            }
+
             var dataContext = new SlyBotDataContext();
             SkypeMessage msg = new SkypeMessage() { Date = DateTime.Now, IsSent = false, Message = smsMessage };
             dataContext.SkypeMessages.InsertOnSubmit(msg);
