@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="SlyBot">
+  <DataContextMoniker Name="/SlyBotDataContext" />
+  <nestedChildShapes>
+    <classShape Id="9c0dc35f-d4f4-4430-98d4-3370904b0515" absoluteBounds="0.875, 0.75, 2, 2.24658447265625">
+      <DataClassMoniker Name="/SlyBotDataContext/LoggedTransaction" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8b6d7762-32e3-4bad-b664-448402567a41" absoluteBounds="0.89000000000000012, 1.21, 1.9700000000000002, 1.68658447265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="c3410290-2a54-4862-9de5-06ecb368b48c" absoluteBounds="0.875, 3.75, 2, 1.4248478190104168">
+      <DataClassMoniker Name="/SlyBotDataContext/SkypeMessage" />
+      <nestedChildShapes>
+        <elementListCompartment Id="17d0cfd1-61f9-43b0-a03a-bd680676216a" absoluteBounds="0.89000000000000012, 4.21, 1.9700000000000002, 0.86484781901041674" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="74cee3ff-54a7-4abd-95ac-ad6b7a1fe217" absoluteBounds="4.125, 2, 2, 1.9178898111979166">
+      <DataClassMoniker Name="/SlyBotDataContext/Log" />
+      <nestedChildShapes>
+        <elementListCompartment Id="24fadeaf-95b8-49a1-ad5f-fc180a406ec6" absoluteBounds="4.14, 2.46, 1.9700000000000002, 1.3578898111979165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
