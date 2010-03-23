@@ -21,12 +21,14 @@ namespace Core
 
         static DataExtractor()
         {
-            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-            builder.DataSource = "localhost";
-            builder.InitialCatalog = "QUIK";
-            builder.IntegratedSecurity = false;
-            builder.UserID = "Misha2Kota";
-            builder.Password = "2KotaSignature";
+            var builder = new SqlConnectionStringBuilder
+                              {
+                                  DataSource = "localhost",
+                                  InitialCatalog = "QUIK",
+                                  IntegratedSecurity = false,
+                                  UserID = "Misha2Kota",
+                                  Password = "2KotaSignature"
+                              };
 
             con = new SqlConnection(builder.ConnectionString);
 

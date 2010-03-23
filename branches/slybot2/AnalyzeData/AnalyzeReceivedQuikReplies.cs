@@ -11,11 +11,11 @@ namespace AnalyzeData
 {
     class AnalyzeReceivedQuikReplies
     {
-        [STAThread]
-        static void Main(string[] args)
-        {
-            AnalyzeReplies();
-        }
+        //[STAThread]
+        //static void Main(string[] args)
+        //{
+        //    AnalyzeReplies();
+        //}
 
         static List<string> patterns = new List<string>()
         {

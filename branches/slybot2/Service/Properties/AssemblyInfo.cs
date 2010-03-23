@@ -1,17 +1,17 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Resources;
+using log4net.Config;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AnalyzeData")]
+[assembly: AssemblyTitle("Service")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("AnalyzeData")]
-[assembly: AssemblyCopyright("Copyright © Mikhail Novitskiy 2010")]
+[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyProduct("Service")]
+[assembly: AssemblyCopyright("Copyright © Microsoft 2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -21,7 +21,7 @@ using System.Resources;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("bc4086c5-587b-4078-95a1-0bb2afa74bf9")]
+[assembly: Guid("7a8678f9-9283-4d1e-886a-584430912736")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -35,4 +35,9 @@ using System.Resources;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: NeutralResourcesLanguageAttribute("en-US")]
+
+[assembly: XmlConfigurator(Watch = false)]
+
+
+
+
