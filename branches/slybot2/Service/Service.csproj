@@ -56,14 +56,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AsyncAppender.cs" />
+    <Compile Include="Snapshot\ISnapshotUpdater.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Snapshot\SnapshotUpdater.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
+    <None Include="quik_sqlite.db3" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

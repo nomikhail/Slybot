@@ -1,39 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Data.SQLite;
 using System.Threading;
 using log4net;
-using System.Runtime.InteropServices;
 using System.Diagnostics;
 
 namespace Service
 {
     class Program
     {
-        static readonly ILog logger = LogManager.GetLogger("TestLogger");
-
-
-        static void Main(string[] args)
+        static void Main()
         {
-            var builder = new SQLiteConnectionStringBuilder();
-            builder.DataSource = @"D:\!\Database\quik_sqlite.db3";
-            
-            SQLiteConnection connection = new SQLiteConnection(builder.ConnectionString);
+            var builder = new SQLiteConnectionStringBuilder {DataSource = @"D:\!\Database\quik_sqlite.db3"};
+
+            var connection = new SQLiteConnection(builder.ConnectionString);
             connection.Open();
 
 
-            Stopwatch sw = new Stopwatch(); sw.Start();
+            var sw = new Stopwatch(); sw.Start();
             int total = 0;
             while (!Console.KeyAvailable)
             {
-                Thread.Sleep(50);
+                //Thread.Sleep(10);
                 total++;
-                if (QueryPapers(connection))
+                QueryPapers(connection);
+                if (total % 200 == 0)
                 {
                     Console.WriteLine();
-                    Console.WriteLine(((double)sw.ElapsedMilliseconds / total) + " msec/iteration.");                    
+                    Console.WriteLine(((double) sw.ElapsedMilliseconds/total) + " msec/iteration.");
                 }
             }
 
@@ -42,13 +37,13 @@ namespace Service
 
         class PaperItem : IEquatable<PaperItem>
         {
-            public string Instrument { get; set; }
+            public string Instrument { private get; set; }
 
-            public double Bid { get; set; }
-            public double Ask { get; set; }
-            public double Price { get; set; }
+            public double Bid { private get; set; }
+            public double Ask { private get; set; }
+            public double Price { private get; set; }
 
-            public DateTime Time { get; set; }
+            public DateTime Time { private get; set; }
 
             public bool Equals(PaperItem other)
             {
@@ -66,53 +61,59 @@ namespace Service
             }
         }
 
-        static List<PaperItem> lastItems = new List<PaperItem>();
+        static List<PaperItem> _lastItems = new List<PaperItem>();
         static bool QueryPapers(SQLiteConnection connection)
         {
-            var command1 = new SQLiteCommand("select * from stakan_edm0 order by price", connection);
-            var command2 = new SQLiteCommand("select * from stakan_eum0 order by price", connection);
-            var command3 = new SQLiteCommand("select * from stakan_sim0 order by price", connection);
+            QueryCmdText(connection, "select * from stakan_eum0 order by price");
+            QueryCmdText(connection, "select * from stakan_edm0 order by price");
+            QueryCmdText(connection, "select * from stakan_sim0 order by price");
 
-            QueryCommand(command1);
-            QueryCommand(command2);
-            QueryCommand(command3);
+            QueryCmdText(connection, "select * from futlimits");
+            QueryCmdText(connection, "select * from micexlimits");
+            QueryCmdText(connection, "select count(*) from orders");
+            QueryCmdText(connection, "select * from portfolio");
+            QueryCmdText(connection, "select count(*) from trades");
 
+            //var command = new SQLiteCommand("select * from papers order by time desc", connection);
 
-            var command = new SQLiteCommand("select * from papers order by time desc", connection);
+            //var reader = command.ExecuteReader();
 
-            var reader = command.ExecuteReader();
+            //var items = new List<PaperItem>();
+            //while (reader.Read())
+            //{
+            //    var objs = new object[reader.FieldCount];
+            //    reader.GetValues(objs);
 
-            List<PaperItem> items = new List<PaperItem>();
-            while (reader.Read())
-            {
-                var objs = new object[reader.FieldCount];
-                reader.GetValues(objs);
+            //    items.Add(new PaperItem
+            //    {
+            //      Instrument = (string)objs[0],
+            //      Bid = (double)objs[1],
+            //      Ask = (double)objs[2],
+            //      Price = (double)objs[3],
+            //      Time = (DateTime)objs[4]
+            //    });
+            //}
 
-                items.Add(new PaperItem()
-                {
-                    Instrument = (string)objs[0],
-                    Bid = (double)objs[1],
-                    Ask = (double)objs[2],
-                    Price = (double)objs[3],
-                    Time = (DateTime)objs[4]
-                });
-            }
+            //reader.Close();
 
-            reader.Close();
+            //if (!items.SequenceEqual(_lastItems))
+            //{
+            //    _lastItems = items;
 
-            if (!items.SequenceEqual(lastItems))
-            {
-                lastItems = items;
+            //    Console.Clear();
+            //    foreach (var item in items)
+            //        Console.WriteLine(item);
 
-                Console.Clear();
-                foreach (var item in items)
-                    Console.WriteLine(item);
-
-                return true;
-            }
+            //    return true;
+            //}
             return false;
         }
 
+        private static void QueryCmdText(SQLiteConnection connection, string cmdText)
+        {
+            var command1 = new SQLiteCommand(cmdText, connection);
+            QueryCommand(command1);
+        }
 
         static void QueryCommand(SQLiteCommand command)
         {
