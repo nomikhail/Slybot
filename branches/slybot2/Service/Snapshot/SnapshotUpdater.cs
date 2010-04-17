@@ -7,30 +7,34 @@ namespace Service.Snapshot
     {
         private class Snapshot : ISnapshot
         {
+            public Dictionary<string, List<StakanItem>> Stakans = null;
+            public List<SnapOrder> Orders = null;
+            public List<PortfolioEntry> Portfolio = null;
+
             public IEnumerable<StakanItem> GetStakan(string instrument)
             {
-                throw new NotImplementedException();
+                yield break;
             }
 
             public IEnumerable<SnapOrder> GetSnapOrders()
             {
-                throw new NotImplementedException();
+                yield break;
             }
 
             public IEnumerable<PortfolioEntry> GetPorfolioItems()
             {
-                throw new NotImplementedException();
+                yield break;
             }
         }
 
         public bool Update()
         {
-            throw new NotImplementedException();
+            return false;
         }
 
         public ISnapshot GetSnapshot()
         {
-            throw new NotImplementedException();
+            return new Snapshot();
         }
     }
 }
