@@ -30,7 +30,7 @@ namespace Core
             if (pos >= 0 && IsPosIncreaseProhibited(pos))
                 return unacceptableThreshold;
 
-            double threshold = (15.0 / Settings.maxPos) * pos + 15.0;
+            double threshold = (5.0 / Settings.maxPos) * pos + 10.0;
 
             if (pos >= 0 && Settings.exitPortfolio)
                 threshold += Settings.counterExitPortfolioBonus;
@@ -45,7 +45,7 @@ namespace Core
             if (pos <= 0 && IsPosIncreaseProhibited(pos))
                 return unacceptableThreshold;
 
-            double threshold = (-15.0 / Settings.maxPos) * pos + 15.0;
+            double threshold = (-5.0 / Settings.maxPos) * pos + 10.0;
 
             if (pos <= 0 && Settings.exitPortfolio)
                 threshold += Settings.counterExitPortfolioBonus;
