@@ -13,7 +13,7 @@ namespace Core
         public static readonly double MaxLooseToMarket = 10.0;
         public static readonly double Actual2TargetPriceDeviation = 12.0;
 
-        public static readonly int maxPos = 150;
+        public static readonly int maxPos = 170;
         public static readonly double minFreeMoney = 30000;
 
         public static readonly bool exitPortfolio = false;
