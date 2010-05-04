@@ -62,8 +62,8 @@ namespace Core
                 EurUsdBid = bid;
                 EurUsdAsk = ask;
             }
-            else
-                throw new Exception("Unknown instrument: " + instrument);
+//            else
+//                throw new Exception("Unknown instrument: " + instrument);
         }
 
         public static Market QueryFromStakan(int liquidityInsurance)
