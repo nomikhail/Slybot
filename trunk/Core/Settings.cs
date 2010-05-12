@@ -17,7 +17,9 @@ namespace Core
         public static readonly double minFreeMoney = 30000;
 
         public static readonly bool exitPortfolio = false;
-        public static readonly double counterExitPortfolioBonus = 10;
+        public static readonly double counterExitPortfolioBonus = 20;
+
+        public static readonly int permanentSiPos = 25;
 
         public const string Si_instrument = "SiM0";
         public const string Eu_instrument = "EuM0";

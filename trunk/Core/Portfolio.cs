@@ -161,7 +161,7 @@ namespace Core
                 if (dataItem == null)
                     return 0;
 
-                return (int)dataItem[0];
+                return (int)dataItem[0] - Settings.permanentSiPos;
             }
         }
 
