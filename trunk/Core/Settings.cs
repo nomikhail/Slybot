@@ -16,10 +16,10 @@ namespace Core
         public static readonly int maxPos = 170;
         public static readonly double minFreeMoney = 30000;
 
-        public static readonly bool exitPortfolio = false;
-        public static readonly double counterExitPortfolioBonus = 20;
+        public static readonly bool exitPortfolio = true;
+        public static readonly double counterExitPortfolioBonus = 5;
 
-        public static readonly int permanentSiPos = 25;
+        public static readonly int permanentSiPos = 0;
 
         public const string Si_instrument = "SiM0";
         public const string Eu_instrument = "EuM0";
@@ -28,13 +28,13 @@ namespace Core
         public static readonly string quikDir = @"D:\!\QUIK_BCS\";
         public static readonly string skypeAgentDir = @"D:\!\SkypeAgent\";
 
-        public static TimeSpan morningStart = new TimeSpan(10, 00, 0), initiationFinish = new TimeSpan(10, 27, 0),
-                        dayClearingStart = new TimeSpan(14, 0, 0),
-                        dayClearingEnd = new TimeSpan(14, 3, 0),
-                        eveClearingStart = new TimeSpan(18, 45, 0),
-                        eveClearingEnd = new TimeSpan(19, 0, 0);
+        public static TimeSpan morningStart = new TimeSpan(9, 50, 00), initiationFinish = new TimeSpan(10, 00, 00),
+                        dayClearingStart = new TimeSpan(14, 00, 00),
+                        dayClearingEnd = new TimeSpan(14, 3, 00),
+                        eveClearingStart = new TimeSpan(18, 45, 00),
+                        eveClearingEnd = new TimeSpan(19, 00, 00);
 
-        public static TimeSpan tradingStart = new TimeSpan(10, 30, 20),
+        public static TimeSpan tradingStart = new TimeSpan(10, 00, 20),
                         tradingEndBeforeDayClearing = new TimeSpan(13, 59, 40),
                         tradingStartAfterDayClearing = new TimeSpan(14, 03, 20),
                         tradingEndBeforeEveClearing = new TimeSpan(18, 44, 40),
