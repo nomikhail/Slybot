@@ -350,7 +350,8 @@ namespace Core
             {
                 if (ex.Message.Contains("deadlock victim. Rerun the transaction"))
                 {
-                    Logger.Warn(ex);
+                    Logger.Debug(ex);
+                    Logger.Warn("Transaction was aborted.");
                     return null;
                 }
 
