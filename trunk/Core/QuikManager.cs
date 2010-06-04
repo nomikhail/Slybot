@@ -45,10 +45,10 @@ namespace Core
             try
             {
                 string msg = string.Format("Recieve <- ({0}; {1}; {2}; {3}; {4}; \"{5}\")", result, extendedErrorCode, replyCode, transactionID, orderNumber, replyMessage);
-                if (result == 0 && replyCode == 3)
+                //if (result == 0 && replyCode == 3)
                     apiLogger.Debug(msg);
-                else
-                    apiLogger.Warn(msg);
+                //else
+                //    apiLogger.Warn(msg);
 
                 Order.TransactionsReply(result, extendedErrorCode, replyCode, transactionID, orderNumber, replyMessage);
             }
