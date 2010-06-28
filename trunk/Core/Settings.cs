@@ -21,9 +21,9 @@ namespace Core
 
         public static readonly int permanentSiPos = 0;
 
-        public const string Si_instrument = "SiM0";
-        public const string Eu_instrument = "EuM0";
-        public const string ED_instrument = "EDM0";
+        public const string Si_instrument = "SiU0";
+        public const string Eu_instrument = "EuU0";
+        public const string ED_instrument = "EDU0";
 
         public static readonly string quikDir = @"D:\!\QUIK_BCS\";
         public static readonly string skypeAgentDir = @"D:\!\SkypeAgent\";
